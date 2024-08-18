@@ -2,6 +2,7 @@ package org.example.jobboardspringboot.job;
 
 
 import jakarta.persistence.*;
+import org.example.jobboardspringboot.company.Company;
 
 @Entity
 //@Table(name = "job_table")
@@ -14,6 +15,8 @@ public class Job {
     int minSalary;
     int maxSalary;
     String location;
+    @ManyToOne
+    private Company company;
 
     public Job(){}
     public Job(Long id, String title, String desc, int minSalary, int maxSalary, String location) {
@@ -71,5 +74,13 @@ public class Job {
 
     public void setLocation(String location) {
         this.location = location;
+    }
+
+    public Company getCompany() {
+        return company;
+    }
+
+    public void setCompany(Company company) {
+        this.company = company;
     }
 }
