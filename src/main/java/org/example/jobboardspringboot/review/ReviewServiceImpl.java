@@ -19,16 +19,18 @@ public class ReviewServiceImpl implements ReviewService{
         this.repo = repo;
         this.companyService = companyService;
     }
+
     @Override
-    public Review getReviewById(Long id) {
-        Optional<Review> reviewOptional = repo.getReviewById(id);
-        if (reviewOptional.isPresent()) return reviewOptional.get();
-        return new Review();
+    public Review getReview(Long companyId, Long reviewId) {
+        List<Review> reviews = repo.findByCompanyId(companyId);
+        return reviews.stream()
+                .filter( review -> review.getId().equals(reviewId))
+                .findFirst()
+                .orElse(null);
     }
 
     @Override
     public List<Review> getAllReviews(Long companyId) {
-
         List<Review> reviews = repo.findByCompanyId(companyId);
         return  reviews;
     }
