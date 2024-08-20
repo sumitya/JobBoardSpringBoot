@@ -1,5 +1,6 @@
 package org.example.jobboardspringboot.company;
 
+import org.example.jobboardspringboot.job.Job;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -18,6 +19,11 @@ public class CompanyServiceImpl implements CompanyService {
     }
 
     @Override
+    public Company getCompanyById(Long id) {
+        return companyRepo.findById(id).orElse(null);
+    }
+
+    @Override
     public boolean updateCompany(Long id, Company company) {
         Optional<Company> companyOptional = companyRepo.findById(id);
         if (companyOptional.isPresent()) {
@@ -29,6 +35,14 @@ public class CompanyServiceImpl implements CompanyService {
         }
 
         return false;
+    }
+
+    @Override
+    public boolean deleteCompanyById(Long id) {
+        if (companyRepo.existsById(id)) {
+            companyRepo.deleteById(id);
+            return true;
+        } else return false;
     }
 
     public void createCompany(Company company) {

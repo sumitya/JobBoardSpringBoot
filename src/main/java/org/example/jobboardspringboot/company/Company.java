@@ -1,5 +1,6 @@
 package org.example.jobboardspringboot.company;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import org.example.jobboardspringboot.job.Job;
 
@@ -12,6 +13,7 @@ public class Company {
     private Long id;
     private String name;
     private String desc;
+    @JsonIgnore // this annotation is used to avoid recursion b/w Job & Company
     @OneToMany(mappedBy = "company")
     private List<Job> jobs;
 
